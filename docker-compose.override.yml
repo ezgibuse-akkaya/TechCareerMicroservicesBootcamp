@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  microservice2.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/image_certificate/tech.pfx
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=Password12*
+    ports:
+      - "5000:8080"
+      - "5030:8081"
+    volumes:
+      - C:/certificate:/image_certificate
+  microservice1.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+    ports:
+      - "5020:8080"
+  sqlserver_data:
+   user: root
+   environment:
+    - "ACCEPT_EULA=Y"
+    - "MSSQL_SA_PASSWORD=Password12*"
+   ports:
+    - 1433:1433
+   volumes:
+    - c:/sql_data:/var/opt/mssql/data
+   
+   
